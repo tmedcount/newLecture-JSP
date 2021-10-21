@@ -18,8 +18,13 @@ public class Nana extends HttpServlet{
 		resp.setContentType("text/html; charset=UTF-8");
 		
 		PrintWriter out = resp.getWriter();
-		int cnt = Integer.parseInt(req.getParameter("cnt"));
 		
+		String cnt_ = req.getParameter("cnt");
+		int cnt = 100;
+		
+		if(cnt_ != null && !cnt_.equals(""))
+			cnt = Integer.parseInt(cnt_);
+			
 		for(int i=0; i<cnt; i++)
 			// chrome - text, Edge - html로 해석 따라서 출력 형식을 지정해 줘야 한다.
 			out.println((i+1)+": 안녕 Servlet~!<br />");
