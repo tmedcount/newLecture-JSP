@@ -14,7 +14,13 @@ public class Nana extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		resp.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		
 		PrintWriter out = resp.getWriter();
-		out.println("Hello~~~~~~~~~~~~~~!!!!!");
+		
+		for(int i=0; i<100; i++)
+			// chrome - text, Edge - html로 해석 따라서 출력 형식을 지정해 줘야 한다.
+			out.println((i+1)+": 안녕 Servlet!!<br />");
 	}
 }
