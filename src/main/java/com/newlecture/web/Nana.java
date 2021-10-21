@@ -18,9 +18,10 @@ public class Nana extends HttpServlet{
 		resp.setContentType("text/html; charset=UTF-8");
 		
 		PrintWriter out = resp.getWriter();
+		int cnt = Integer.parseInt(req.getParameter("cnt"));
 		
-		for(int i=0; i<100; i++)
+		for(int i=0; i<cnt; i++)
 			// chrome - text, Edge - html로 해석 따라서 출력 형식을 지정해 줘야 한다.
-			out.println((i+1)+": 안녕 Servlet!!<br />");
+			out.println((i+1)+": 안녕 Servlet~!<br />");
 	}
 }
