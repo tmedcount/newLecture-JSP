@@ -18,11 +18,11 @@ public class CharacterEncodingFilter implements Filter {
 			FilterChain chain)
 			throws IOException, ServletException {
 		
-		req.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8"); //before
 		
 		chain.doFilter(req, resp);
 		
-
+		// after
 	}
 
 }
