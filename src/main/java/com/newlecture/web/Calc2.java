@@ -16,9 +16,9 @@ public class Calc2 extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		ServletContext application = req.getServletContext();
+		ServletContext application = req.getServletContext(); // 전역 범위
 		HttpSession session = req.getSession(); // 사용자마다 공간이 다르다.
-		Cookie[] cookies = req.getCookies();
+		Cookie[] cookies = req.getCookies(); // WebBrowser별 path 범주 공간
 		
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
@@ -64,6 +64,7 @@ public class Calc2 extends HttpServlet{
 			}
 			
 			resp.getWriter().printf("result is %d\n", result);
+			
 		} else {
 			// application.setAttribute("value", v);
 			// application.setAttribute("op", op);
@@ -81,6 +82,9 @@ public class Calc2 extends HttpServlet{
 			
 			resp.addCookie(valueCookie);
 			resp.addCookie(opCookie);
+			
+			resp.sendRedirect("/calc2.html"); // redirection
+			
 		}
 			
 	}
