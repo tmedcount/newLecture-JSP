@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,18 @@ public class CalcPage extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		Cookie[] cookies = req.getCookies();
+		
+		String exp = "0";
+		if(cookies != null) {
+			for(Cookie c : cookies) {
+				if(c.getName().equals("exp")) {
+					exp = c.getValue();
+					break;
+				}	
+			}
+		}
+			
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = resp.getWriter(); 
@@ -43,19 +56,19 @@ public class CalcPage extends HttpServlet{
 		out.write("<form action=\"calc3\" method=\"post\" accept-charset=\"utf-8\">");
 		out.write("<table>");
 		out.write("<tr>");
-		out.printf("<td class=\"output\" colspan=\"4\">%d</td>", 3+4);
+		out.printf("<td class=\"output\" colspan=\"4\">%s</td>", exp);
 		out.write("</tr>");
 		out.write("<tr>");
 		out.write("<td><input type=\"submit\" name=\"operator\" value=\"CE\" /></td>");
 		out.write("<td><input type=\"submit\" name=\"operator\" value=\"C\" /></td>");
 		out.write("<td><input type=\"submit\" name=\"operator\" value=\"BS\" /></td>");
-		out.write("<td><input type=\"submit\" name=\"operator\" value=\"¡À\" /></td>");
+		out.write("<td><input type=\"submit\" name=\"operator\" value=\"/\" /></td>");
 		out.write("</tr>");
 		out.write("<tr>");
 		out.write("<td><input type=\"submit\" name=\"value\" value=\"7\" /></td>");
 		out.write("<td><input type=\"submit\" name=\"value\" value=\"8\" /></td>");
 		out.write("<td><input type=\"submit\" name=\"value\" value=\"9\" /></td>");
-		out.write("<td><input type=\"submit\" name=\"operator\" value=\"X\" /></td>");
+		out.write("<td><input type=\"submit\" name=\"operator\" value=\"*\" /></td>");
 		out.write("</tr>");
 		out.write("<tr>");
 		out.write("<td><input type=\"submit\" name=\"value\" value=\"4\" /></td>");
