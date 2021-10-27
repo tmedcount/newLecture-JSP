@@ -77,6 +77,8 @@ public class Calc2 extends HttpServlet{
 			valueCookie.setPath("/calc2"); // path 可记
 			opCookie.setPath("/calc2");
 			
+			valueCookie.setMaxAge(24*60*60); // maxAge 可记
+			
 			resp.addCookie(valueCookie);
 			resp.addCookie(opCookie);
 		}
