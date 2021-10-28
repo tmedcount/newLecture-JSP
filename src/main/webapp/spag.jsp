@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +6,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%=request.getAttribute("result") %>�Դϴ�.
+	<%=request.getAttribute("result") %>입니다.
 </body>
 </html>
