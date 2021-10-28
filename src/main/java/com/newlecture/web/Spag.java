@@ -1,6 +1,8 @@
 package com.newlecture.web;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,6 +37,14 @@ public class Spag extends HttpServlet{
 		// 4) 특정 session에 대한 저장소 - session
 		
 		req.setAttribute("result", result);
+
+		String[] names = {"newlec", "yamto"};
+		req.setAttribute("names", names);
+		
+		Map<String, Object> notice = new HashMap<String, Object>();
+		notice.put("id", 1);
+		notice.put("title", "EL은 좋아요!");
+		req.setAttribute("notice", notice);
 		
 		// forward => 일을 이어간다. cf. )redirect => 새로 요청.
 		RequestDispatcher dispatcher = req.getRequestDispatcher("spag.jsp");
