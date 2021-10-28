@@ -15,6 +15,9 @@ pageContext.setAttribute("result", "hello!");
 	${notice.title}<br>
 	${result}<br>
 	${param.n}<br>
+	${param.n > 3}<br>
+	${empty param.n?"값이 비어 있습니다.":param.n}<br>
+	${param.n/2}<br>
 	${header.accept}
 </body>
 </html>
