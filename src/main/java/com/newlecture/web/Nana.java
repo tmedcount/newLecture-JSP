@@ -10,23 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/hi")
-public class Nana extends HttpServlet{
+public class Nana extends HttpServlet {
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		
-		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 		
-		PrintWriter out = resp.getWriter();
+		String cnt_ = request.getParameter("cnt");
 		
-		String cnt_ = req.getParameter("cnt");
 		int cnt = 100;
-		
-		if(cnt_ != null && !cnt_.equals(""))
+		if(cnt_ != null && !cnt_.equals("")) {
 			cnt = Integer.parseInt(cnt_);
-			
-		for(int i=0; i<cnt; i++)
-			// chrome - text, Edge - html·Î ÇØ¼® µû¶ó¼­ Ãâ·Â Çü½ÄÀ» ÁöÁ¤ÇØ Áà¾ß ÇÑ´Ù.
-			out.println((i+1)+": ¾È³ç Servlet~!<br />");
+		}
+		
+		for(int i=0; i<cnt; i++) {
+			out.println((i+1) + ": ì•ˆë…• Servlet~!<br >");
+		}
 	}
 }

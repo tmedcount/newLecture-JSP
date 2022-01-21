@@ -12,17 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/notice-reg")
 public class NoticeReg extends HttpServlet{
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		//request.setCharacterEncoding("UTF-8");
 		
-		// req.setCharacterEncoding("UTF-8");
+		PrintWriter out = response.getWriter();
 		
-		PrintWriter out = resp.getWriter();
-		
-		String title = req.getParameter("title");
-		String content = req.getParameter("content");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
 		
 		out.println(title);
 		out.println(content);

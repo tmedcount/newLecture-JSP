@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/calcpage")
 public class CalcPage extends HttpServlet{
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		Cookie[] cookies = req.getCookies();
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Cookie[] cookies = request.getCookies();
 		
 		String exp = "0";
 		if(cookies != null) {
@@ -23,13 +22,13 @@ public class CalcPage extends HttpServlet{
 				if(c.getName().equals("exp")) {
 					exp = c.getValue();
 					break;
-				}	
+				}
 			}
 		}
-			
-		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = resp.getWriter(); 
+		
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter(); 
 				
 		out.write("<!DOCTYPE html>");
 		out.write("<html>");

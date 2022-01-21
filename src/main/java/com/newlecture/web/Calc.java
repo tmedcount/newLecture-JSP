@@ -31,7 +31,7 @@ public class Calc extends HttpServlet{
 		
 		int result = 0;
 		
-		if(op.equals("µ¡¼À"))
+		if(op.equals("ë§ì…ˆ"))
 			result = x+y;
 		else
 			result = x-y;

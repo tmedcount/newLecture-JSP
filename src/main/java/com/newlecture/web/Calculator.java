@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -16,23 +16,21 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/calculator")
 public class Calculator extends HttpServlet {
 //	@Override
-//	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		
-//		// get, post ÇÑ ¹ø¿¡ Ã³¸® ÇÊ¿ä. => super.service() override´Â »èÁ¦ + get, post ovrrideµµ »èÁ¦.
-//		if(req.getMethod().equals("GET")) {
-//			System.out.println("GET¿äÃ»ÀÌ ¿Ô½À´Ï´Ù.");
-//		} else if(req.getMethod().equals("POST")) {
-//			System.out.println("POST¿äÃ»ÀÌ ¿Ô½À´Ï´Ù.");
+//		if(request.getMethod().equals("GET")) { //ëŒ€ë¬¸ìžë¡œ ë°›ì•„ì•¼ í•œë‹¤
+//			System.out.println("GET ìš”ì²­ì´ ì™”ìŠµë‹ˆë‹¤.");
+//		} else if(request.getMethod().equals("POST")) { //ëŒ€ë¬¸ìžë¡œ ë°›ì•„ì•¼ í•œë‹¤
+//			System.out.println("POST ìš”ì²­ì´ ì™”ìŠµë‹ˆë‹¤.");
 //		}
 //		
-//		super.service(req, resp);
+//		super.service(request, response);
 //		
 //	}
 	
-	// get, post µû·Î Ã³¸®. => service() override »èÁ¦.
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Cookie[] cookies = req.getCookies();
+	protected void doGet(HttpServletRequest request, HttpServletResponse reponse) throws ServletException, IOException {
+		Cookie[] cookies = request.getCookies();
 		
 		String exp = "0";
 		if(cookies != null) {
@@ -44,9 +42,9 @@ public class Calculator extends HttpServlet {
 			}
 		}
 			
-		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = resp.getWriter(); 
+		reponse.setCharacterEncoding("UTF-8");
+		reponse.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = reponse.getWriter(); 
 				
 		out.write("<!DOCTYPE html>");
 		out.write("<html>");
@@ -112,12 +110,12 @@ public class Calculator extends HttpServlet {
 	}
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Cookie[] cookies = req.getCookies(); // WebBrowserº° path ¹üÁÖ °ø°£
+	protected void doPost(HttpServletRequest request, HttpServletResponse reponse) throws ServletException, IOException {
+		Cookie[] cookies = request.getCookies(); // WebBrowserï¿½ï¿½ path ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
-		String value = req.getParameter("value");
-		String operator = req.getParameter("operator");
-		String dot = req.getParameter("dot");
+		String value = request.getParameter("value");
+		String operator = request.getParameter("operator");
+		String dot = request.getParameter("dot");
 		
 		String exp = "";
 		if(cookies != null)
@@ -133,7 +131,6 @@ public class Calculator extends HttpServlet {
 			try {
 				exp = String.valueOf(engine.eval(exp));
 			} catch (ScriptException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else if(operator != null && operator.equals("C")) { 
@@ -149,8 +146,8 @@ public class Calculator extends HttpServlet {
 		if(operator != null && operator.equals("C"))
 			expCookie.setMaxAge(0);
 		
-		expCookie.setPath("/calculator");
-		resp.addCookie(expCookie);
-		resp.sendRedirect("calculator"); // redirection
+		expCookie.setPath("/calculator"); //ì¿ ê¸° í•œì •
+		reponse.addCookie(expCookie);
+		reponse.sendRedirect("calculator"); //redirection
 	}
 }

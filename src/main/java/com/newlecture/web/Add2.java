@@ -22,7 +22,7 @@ public class Add2 extends HttpServlet{
 		int result = 0;
 		
 		for(int i=0; i<num_.length; i++) {
-			int num = Integer.parseInt(num_[i]);
+			int num = Integer.parseInt(num_[i]); //반복문 안에 선언은 한번만 cf.) 연산은 반복O
 			result += num;
 		}
 		

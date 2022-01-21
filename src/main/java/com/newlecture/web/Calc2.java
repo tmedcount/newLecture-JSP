@@ -1,91 +1,84 @@
 package com.newlecture.web;
 
-import java.io.IOException;
+import java.io.*;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.*;
+import javax.servlet.annotation.*;
+import javax.servlet.http.*;
 
 @WebServlet("/calc2")
 public class Calc2 extends HttpServlet{
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		ServletContext application = req.getServletContext(); // 전역 범위
-		HttpSession session = req.getSession(); // 사용자마다 공간이 다르다.
-		Cookie[] cookies = req.getCookies(); // WebBrowser별 path 범주 공간
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//ServletContext application = request.getServletContext();
+		//HttpSession session = request.getSession();
+		Cookie[] cookies = request.getCookies();
 		
-		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; UTF-8");
 		
-		String v_ = req.getParameter("v");
-		String op = req.getParameter("operator");
+		String v_ = request.getParameter("v");
+		String op = request.getParameter("operator");
 		
 		int v = 0;
-		
-		if(!v_.equals(""))
+		if(!v_.equals("")) {
 			v = Integer.parseInt(v_);
-				
+		}
+		
 		if(op.equals("=")) {
-			// int x = (Integer)application.getAttribute("value");
-			// int x = (Integer)session.getAttribute("value");
+			//int x = (Integer)application.getAttribute("value");
+			
+			//int x = (Integer)session.getAttribute("value");
 			
 			int x = 0;
 			for(Cookie c : cookies) {
 				if(c.getName().equals("value")) {
 					x = Integer.parseInt(c.getValue());
 					break;
-				}	
+				}
 			}
 			
 			int y = v;
-			// String operator = (String)application.getAttribute("op");
-			// String operator = (String)session.getAttribute("op");
+			
+			//String op = (String)application.getAttribute("operator");
+			
+			//String op = (String)session.getAttribute("operator");
 			
 			String operator = "";
 			for(Cookie c : cookies) {
 				if(c.getName().equals("op")) {
 					operator = c.getValue();
 					break;
-				}	
+				}
 			}
 			
 			int result = 0;
 			
 			if(operator.equals("+")) {
-				result = x+y;
+				result = x + y;
 			} else {
-				result = x-y;
+				result = x - y;
 			}
 			
-			resp.getWriter().printf("result is %d\n", result);
-			
+			response.getWriter().printf("result is %d", result);
 		} else {
-			// application.setAttribute("value", v);
-			// application.setAttribute("op", op);
+			//application.setAttribute("value", v);
+			//application.setAttribute("operator", operator_);
 			
-			// session.setAttribute("value", v);
-			// session.setAttribute("op", op);
+			//session.setAttribute("value", v);
+			//session.setAttribute("operator", operator_);
 			
 			Cookie valueCookie = new Cookie("value", String.valueOf(v));
 			Cookie opCookie = new Cookie("op", op);
-			
-			valueCookie.setPath("/calc2"); // path 옵션
+			valueCookie.setPath("/calc2");
+			valueCookie.setMaxAge(24*60*60);
 			opCookie.setPath("/calc2");
+			response.addCookie(valueCookie);
+			response.addCookie(opCookie);
 			
-			valueCookie.setMaxAge(24*60*60); // maxAge 옵션
-			
-			resp.addCookie(valueCookie);
-			resp.addCookie(opCookie);
-			
-			resp.sendRedirect("/calc2.html"); // redirection
-			
+			response.sendRedirect("calc2.html");
 		}
-			
+		
+		
 	}
 }

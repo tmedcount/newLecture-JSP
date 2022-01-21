@@ -1,48 +1,40 @@
 package com.newlecture.web;
 
-import java.io.IOException;
+import java.io.*;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.script.*;
+import javax.servlet.*;
+import javax.servlet.annotation.*;
+import javax.servlet.http.*;
 
 @WebServlet("/calc3")
 public class Calc3 extends HttpServlet{
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		Cookie[] cookies = req.getCookies(); // WebBrowser�� path ���� ����
-				
-		String value = req.getParameter("value");
-		String operator = req.getParameter("operator");
-		String dot = req.getParameter("dot");
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Cookie[] cookies = request.getCookies();
 		
+		String value = request.getParameter("value");
+		String operator = request.getParameter("operator");
+		String dot = request.getParameter("dot");
+					
 		String exp = "";
-		if(cookies != null)
+		if(cookies != null) {
 			for(Cookie c : cookies) {
 				if(c.getName().equals("exp")) {
 					exp = c.getValue();
 					break;
-				}	
+				}
 			}
+		}
 		
 		if(operator != null && operator.equals("=")) {
 			ScriptEngine engine = new ScriptEngineManager().getEngineByName("graal.js");
 			try {
 				exp = String.valueOf(engine.eval(exp));
 			} catch (ScriptException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else if(operator != null && operator.equals("C")) { 
+		} else if(operator != null && operator.equals("C")) {
 			exp = "";
 		} else {
 			exp += (value == null)?"":value;
@@ -52,10 +44,13 @@ public class Calc3 extends HttpServlet{
 		
 		Cookie expCookie = new Cookie("exp", exp);
 		
-		if(operator != null && operator.equals("C"))
+		if(operator != null && operator.equals("C")) {
 			expCookie.setMaxAge(0);
-		resp.addCookie(expCookie);
-		resp.sendRedirect("calcpage"); // redirection
-
+		}
+		
+		//expCookie.setPath("/calc3; calcpage"); X. path 경로는 하나만 가능. 따라서 하나의 서블릿으로 합친다.(Calculator)
+		
+		response.addCookie(expCookie);
+		response.sendRedirect("calcpage");
 	}
 }
