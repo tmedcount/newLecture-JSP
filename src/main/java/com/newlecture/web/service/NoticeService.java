@@ -35,7 +35,7 @@ public class NoticeService {
 				+ "    SELECT ROWNUM NUM, N.* "
 				+ "    FROM (SELECT * FROM NOTICE ORDER BY REGDATE DESC) N "
 				+ ") "
-				+ "WHERE NUM BETWEEN 6 AND 10"; //수정 필요
+				+ "WHERE NUM BETWEEN 6 AND 10";
 		
 		return 0;
 	}
