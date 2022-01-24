@@ -155,15 +155,13 @@
 								</tr>
 								<tr>
 									<th>작성일</th>
-									<td class="text-align-left text-indent" colspan="3">
-									<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${n.regdate}"/>
-									</td>
+									<td class="text-align-left text-indent" colspan="3"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${n.regdate}"/></td>
 								</tr>
 								<tr>
 									<th>작성자</th>
 									<td>${n.writerId}</td>
 									<th>조회수</th>
-									<td>${n.hit}</td>
+									<td><fmt:formatNumber type="number" pattern="#,####,####" value="${n.hit}" /></td>
 								</tr>
 								<tr>
 									<th>첨부파일</th>
@@ -193,7 +191,7 @@
 								
 								<tr>
 									<th>다음글</th>
-									<td colspan="3"  class="text-align-left text-indent">다음글이 없습니다.</td>
+									<td colspan="3" class="text-align-left text-indent">다음글이 없습니다.</td>
 								</tr>
 								
 									
