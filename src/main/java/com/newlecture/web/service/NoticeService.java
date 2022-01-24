@@ -41,11 +41,20 @@ public class NoticeService {
 	}
 	
 	public Notice getNotice(int id) {
+		String sql = "SELECT * FROM NOTICE WHERE ID=?";
 		
 		return null;
 	}
 	
 	public Notice getPrevNotice(int id) {
+		String sql = "SELECT * FROM NOTICE "
+				+ "WHERE ID = ( "
+				+ "    SELECT ID FROM ( "
+				+ "        SELECT ROWNUM NUM, N.ID "
+				+ "        FROM (SELECT * FROM NOTICE WHERE ID > 3) N " //수정 필요
+				+ "    ) "
+				+ "    WHERE NUM = 1 "
+				+ ")";
 		
 		return null;
 	}
