@@ -1,4 +1,4 @@
-package com.newlecture.web.controller;
+package com.newlecture.web.controller.notice;
 
 import java.io.*;
 
@@ -10,7 +10,7 @@ import com.newlecture.web.entity.*;
 import com.newlecture.web.service.*;
 
 @WebServlet("/notice/detail")
-public class NoticeDetailController extends HttpServlet {
+public class DetailController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -18,9 +18,11 @@ public class NoticeDetailController extends HttpServlet {
 		NoticeService service = new NoticeService();
 		Notice notice = service.getNotice(id);
 		
-		request.setAttribute("n", notice);		
+		request.setAttribute("n", notice);
+		
 		//forward
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/notice/detail.jsp");
-		dispatcher.forward(request, response);
+		request
+			.getRequestDispatcher("/WEB-INF/view/notice/detail.jsp")
+			.forward(request, response);
 	}
 }
