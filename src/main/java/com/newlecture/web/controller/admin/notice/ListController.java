@@ -10,7 +10,7 @@ import javax.servlet.http.*;
 import com.newlecture.web.entity.*;
 import com.newlecture.web.service.*;
 
-@WebServlet("/admin/notice/list")
+@WebServlet("/admin/board/notice/list")
 public class ListController extends HttpServlet {
 	//404 - url 없음
 	//405 - url은 있으나 메소드 없음
@@ -29,11 +29,16 @@ public class ListController extends HttpServlet {
 				}
 				break;
 			case "일괄삭제":
-				for(String delId : delIds) {
-					System.out.printf("del id: %s\n", delId);
+				NoticeService service = new NoticeService();
+				int[] ids = new int[delIds.length];
+				for(int i=0; i<delIds.length; i++) {
+					ids[i] = Integer.parseInt(delIds[i]); 
 				}
+				int result = service.deleteNoticeAll(ids);
 				break;
-		}	
+		}
+		
+		response.sendRedirect("list");
 	}
 	
 	@Override
