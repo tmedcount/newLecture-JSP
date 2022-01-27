@@ -20,14 +20,20 @@ public class ListController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] openIds = request.getParameterValues("open-id");
 		String[] delIds = request.getParameterValues("del-id");
+		String cmd = request.getParameter("cmd");
 		
-		for(String openId : openIds) {
-			System.out.printf("open id: %s\n", openId);
-		}
-		for(String delId : delIds) {
-			System.out.printf("del id: %s\n", delId);
-		}
-		
+		switch(cmd) {
+			case "일괄공개":
+				for(String openId : openIds) {
+					System.out.printf("open id: %s\n", openId);
+				}
+				break;
+			case "일괄삭제":
+				for(String delId : delIds) {
+					System.out.printf("del id: %s\n", delId);
+				}
+				break;
+		}	
 	}
 	
 	@Override
