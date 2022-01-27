@@ -6,6 +6,9 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
+import com.newlecture.web.entity.*;
+import com.newlecture.web.service.*;
+
 @WebServlet("/admin/board/notice/reg")
 public class RegController extends HttpServlet {
 	@Override
@@ -22,9 +25,15 @@ public class RegController extends HttpServlet {
 		String content = request.getParameter("content");
 		String isOpen = request.getParameter("open");
 		
-//		response.setCharacterEncoding("UTF-8");
-//		response.setContentType("text/html; UTF-8");
+		Notice notice = new Notice();
+		notice.setTitle(title);
+		notice.setContent(content);
 		
+		NoticeService service = new NoticeService();
+		service.insertNotice(notice);
+		
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; UTF-8");
 		PrintWriter out = response.getWriter();
 		out.printf("title: %s<br >", title);
 		out.printf("content: %s<br >", content);
