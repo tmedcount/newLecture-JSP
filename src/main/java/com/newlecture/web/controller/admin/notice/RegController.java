@@ -9,6 +9,11 @@ import javax.servlet.http.*;
 import com.newlecture.web.entity.*;
 import com.newlecture.web.service.*;
 
+@MultipartConfig(
+	fileSizeThreshold=1024*1024,
+	maxFileSize=1024*1024*50,
+	maxRequestSize=1024*1024*50*5
+)
 @WebServlet("/admin/board/notice/reg")
 public class RegController extends HttpServlet {
 	@Override
